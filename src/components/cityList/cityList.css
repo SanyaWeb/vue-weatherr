@@ -1,0 +1,67 @@
+.city-list {
+  position: relative;
+}
+.city-list__header {
+  padding: 10px;
+  font-size: 14px;
+  background: #222;
+  border: 2px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  user-select: none;
+}
+.city-list__header-name {
+  margin-right: 20px;
+  font-weight: bold;
+}
+.city-list__header-icon {
+  width: 18px;
+  height: 15px;
+  background: url(../../assets/selectIcon.svg) no-repeat center center;
+  background-size: 100%;
+}
+.city-list__select {
+  display: none;
+  position: absolute;
+  background: #222222;
+  width: 100%;
+}
+.city-list__select_open {
+  display: block;
+}
+.city-list__add {
+  padding: 5px;
+  display: flex;
+  align-items: stretch;
+}
+.city-list__add-input {
+  flex-grow: 1;
+  padding: 5px;
+  background: #bbf7ba;
+}
+.city-list__add-button {
+  user-select: none;
+}
+.city-list__options {
+  margin: 5px;
+  border: 2px solid #eeeeee;
+}
+.city-list__option {
+  display: block;
+  padding: 10px;
+  background: #525252;
+  border-bottom: 2px solid #eeeeee;
+}
+.city-list__option:hover {
+  background: #000000;
+}
+.city-list__option:last-child {
+  border-bottom: 0;
+}
+.city-list__option_active {
+  background: #000000;
+}
+/*# sourceMappingURL=cityList.css.map */
