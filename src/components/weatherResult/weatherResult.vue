@@ -32,12 +32,7 @@
                 return this.$store.getters.activeCity.name;
             },
             weatherInfo() {
-                let weatherInfo = this.$store.getters.weatherInfo;
-                console.log("info - ", weatherInfo )
-                if(weatherInfo) {
-                    this.show = false;
-                }
-                return weatherInfo;
+                return this.$store.getters.weatherInfo;
             },
         },
         components: {

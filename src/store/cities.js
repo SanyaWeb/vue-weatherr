@@ -88,9 +88,7 @@ export default {
 
             let changeCities = oldActive.id ? [oldActive, state.activeCity] : [state.activeCity];
 
-            await weatherDb.insert ("CitiesList", changeCities, function(isInsert, responseText) {
-                console.log(isInsert, "---", responseText);
-            });
+            await weatherDb.insert ("CitiesList", changeCities, false);
 
             await dispatch("getWeather", {cityName: state.activeCity.name});
 
@@ -113,7 +111,6 @@ export default {
                 if(!exist.length) {
                     /** Найдет ли сервис такой город? */
                     await dispatch("getWeather", {cityName: newCity});
-                    console.log(newCity);
                     if (getters.responseStatus === 200) {
                         validCity = true;
                     } else {
@@ -136,13 +133,11 @@ export default {
                 oldActive.active = false;
                 let changeCities = oldActive.id ? [oldActive, newCityState] : [newCityState];
 
-                await weatherDb.insert ("CitiesList", changeCities, function(isInsert, responseText) {
-                    console.log(isInsert, "---", responseText);
-                });
+                await weatherDb.insert ("CitiesList", changeCities, false);
+
                 await weatherDb.select("CitiesList", (isSelected, result)=> {
                     if(isSelected) {
                         commit("setCities", result.reverse());
-                        console.log("state after add - ", state);
                     } else {
                         console.log("error select");
                     }
@@ -164,7 +159,6 @@ export default {
                         commit("activeCity", {id:0, name: ""});
                     }
 
-                    console.log("success", " - ", responseText);
                 } else {
                     console.log("error delete");
                 }
@@ -193,7 +187,9 @@ export default {
                 commit("activeCity", {id:0, name: ""});
                 weatherDb.insert ("CitiesList", defaultCities, function(isInsert, responseText) {
                     commit("setCities", defaultCities);
-                    console.log(isInsert, "---", responseText);
+                    if(!isInsert) {
+                        console.log("Error: ", responseText);
+                    }
                 });
             } else {
                 commit("setCities", idbCitiesList);

@@ -80,7 +80,6 @@ export default {
                                 data.weather[0].main = russWeatherName;
                                 commit("setWeather", data);
                                 commit("showWeather", true);
-                                console.log(data);
                             });
                         });
                     }
