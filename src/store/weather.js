@@ -35,6 +35,7 @@ export default {
     state: {
         weather: null,
         showWeather: false,
+        responseStatus: 500
     },
 
     getters: {
@@ -43,6 +44,9 @@ export default {
         },
         showWeather(state) {
             return state.showWeather;
+        },
+        responseStatus(state) {
+            return state.responseStatus;
         }
     },
 
@@ -53,6 +57,9 @@ export default {
         },
         showWeather(state, bool) {
             state.showWeather = bool;
+        },
+        responseStatus(state, status) {
+            state.responseStatus = status;
         }
     },
     actions: {
@@ -62,7 +69,7 @@ export default {
             try {
                 await getWeather(cityName).then((response)=>{
 
-                    commit("weatherResponseStatus", response.status);
+                    commit("responseStatus", response.status);
 
                     if (response.status !== 200) {
                         console.log("Сервис погоды https://openweathermap.org/ не нашел такого города" + cityName);
@@ -79,7 +86,7 @@ export default {
                     }
                 });
             } catch (e) {
-                commit("weatherResponseStatus", 500);
+                commit("responseStatus", 500);
             }
 
         }

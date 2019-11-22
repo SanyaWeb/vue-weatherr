@@ -46,7 +46,6 @@ export default {
             name: "",
         },
         cities: [...defaultCities],
-        weatherResponseStatus: 500
     },
     getters: {
         cities(s) {
@@ -54,9 +53,6 @@ export default {
         },
         activeCity(s) {
             return s.activeCity;
-        },
-        weatherResponseStatus(state) {
-            return state.weatherResponseStatus;
         }
     },
     mutations: {
@@ -80,9 +76,6 @@ export default {
                     state.activeCity = city;
                 }
             });
-        },
-        weatherResponseStatus(state, status) {
-            state.weatherResponseStatus = status;
         }
     },
     actions: {
@@ -103,7 +96,7 @@ export default {
 
         },
 
-        async addCity({dispatch, commit, state}, payload) {
+        async addCity({dispatch, commit, getters, state}, payload) {
 
             /** Проверка города на валидность */
             let validCity = false;
@@ -121,7 +114,7 @@ export default {
                     /** Найдет ли сервис такой город? */
                     await dispatch("getWeather", {cityName: newCity});
                     console.log(newCity);
-                    if (state.weatherResponseStatus === 200) {
+                    if (getters.responseStatus === 200) {
                         validCity = true;
                     } else {
                         commit("showWeather", true);
@@ -157,10 +150,20 @@ export default {
             }
         },
 
-        async deleteCity({dispatch, state}, payload) {
-            console.log(payload.cityId);
-            await weatherDb.delete ("CitiesList", parseInt(payload.cityId) , (isDeleted, responseText) => {
+        async deleteCity({dispatch, commit,  state}, payload) {
+
+            let cityId = parseInt(payload.cityId);
+
+            await weatherDb.delete ("CitiesList", cityId , (isDeleted, responseText) => {
                 if(isDeleted) {
+
+                    /** Если удаленный город был актианым, очищаем данные погоды о нем */
+                    if(cityId===state.activeCity.id) {
+                        commit("setWeather", null);
+                        commit("showWeather", false);
+                        commit("activeCity", {id:0, name: ""});
+                    }
+
                     console.log("success", " - ", responseText);
                 } else {
                     console.log("error delete");
@@ -171,7 +174,7 @@ export default {
 
         },
 
-        async getUserCities({dispatch, commit, state}, payload) {
+        async getUserCities({dispatch, commit, getters, state}, payload) {
 
             await weatherDb.init(idbOptions);
 
@@ -188,16 +191,15 @@ export default {
                 commit("setWeather", null);
                 commit("showWeather", false);
                 commit("activeCity", {id:0, name: ""});
-                weatherDb.insert ("CitiesList", payload.cities, function(isInsert, responseText) {
-                    commit("setCities", payload.cities);
+                weatherDb.insert ("CitiesList", defaultCities, function(isInsert, responseText) {
+                    commit("setCities", defaultCities);
                     console.log(isInsert, "---", responseText);
                 });
             } else {
                 commit("setCities", idbCitiesList);
-                if(state.activeCity.name) {
+                if(state.activeCity.name && !getters.showWeather) {
                     dispatch("getWeather", {cityName: state.activeCity.name});
                 }
-                console.log("set", " - ", state);
             }
         }
     }
