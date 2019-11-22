@@ -1,19 +1,23 @@
 <template>
-  <div id="weather">
-    <weatherHeader />
-    <cityList />
-  </div>
+    <div id="weather">
+        <div class="weather-header-wrap">
+            <weatherHeader />
+        </div>
+        <cityList />
+        <weatherResult />
+    </div>
 </template>
 
 <script>
 
   import weatherHeader from "./components/weatherHeader/weatherHeader"
   import cityList from "./components/cityList/cityList"
+  import weatherResult from "./components/weatherResult/weatherResult"
 
   export default {
     name: 'weather',
     components: {
-     weatherHeader, cityList
+     weatherHeader, cityList, weatherResult
     }
   }
 </script>
@@ -33,7 +37,10 @@ html, body {
   background: #303a97;
   margin: 0;
   padding: 10px;
-  max-width: 500px;
+  max-width: 100%;
   width: max-content;
+}
+.weather-header-wrap {
+    padding-bottom: 7px;
 }
 </style>

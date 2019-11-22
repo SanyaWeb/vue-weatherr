@@ -1,0 +1,38 @@
+.weather-result {
+  min-height: 165px;
+  position: relative;
+}
+.weather-result__head {
+  padding: 10px;
+  background: #191e4d;
+  font-size: 14px;
+  margin: 3px 0;
+  font-weight: bold;
+}
+.weather-result__info {
+  display: flex;
+  align-items: stretch;
+}
+.weather-result__attrs {
+  display: flex;
+  flex-direction: column;
+  margin-right: 5px;
+}
+.weather-result__values {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.weather-result__attr {
+  padding: 10px;
+  background: #191e4d;
+  font-size: 14px;
+  margin: 3px 0;
+}
+.weather-result__value {
+  padding: 10px;
+  background: #191e4d;
+  font-size: 14px;
+  margin: 3px 0;
+}
+/*# sourceMappingURL=weatherResult.css.map */

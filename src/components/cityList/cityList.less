@@ -1,3 +1,31 @@
+.info {
+  position: absolute;
+  left: 0;
+  top: calc(100% + 3px);
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 2px solid #000;
+  background: #ffffff;
+  color: #222222;
+  max-width: 100%;
+  font-size: 12px;
+  &:before {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: 100%;
+    left: 50%;
+    border-bottom: 7px solid #ffffff;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+
+  }
+}
+
+.info_error {
+  color: #971c21;
+}
+
 .city-list {
   position: relative;
 }
@@ -14,16 +42,17 @@
   box-sizing: border-box;
   user-select: none;
 }
+
 .city-list__header-name {
   margin-right: 20px;
   font-weight: bold;
 }
 
 .city-list__header-icon {
-  width: 18px;
-  height: 15px;
+  width: 10px;
+  height: 14px;
   background: url(../../assets/selectIcon.svg) no-repeat center center;
-  background-size: 100%;
+  background-size: cover;
 }
 
 .city-list__select {
@@ -31,6 +60,9 @@
   position: absolute;
   background: #222222;
   width: 100%;
+  top: 100%;
+  left: 0;
+  z-index: 10;
 }
 
 .city-list__select_open {
@@ -41,7 +73,7 @@
   padding: 5px;
   display: flex;
   align-items: stretch;
-
+  position: relative;
 }
 
 .city-list__add-input {
@@ -59,8 +91,10 @@
 }
 
 .city-list__option {
-  display: block;
-  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+
   background: #525252;
   border-bottom: 2px solid #eeeeee;
   &:hover {
@@ -70,7 +104,22 @@
     border-bottom: 0;
   }
 }
-
+.city-list__option-label {
+  flex-grow: 1;
+  padding: 7px 10px;
+}
+.city-list__option-close {
+  padding: 7px 10px;
+  background: #971c21;
+  color: #fff;
+  line-height: 14px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  &:hover {
+    background: #cf2630;
+  }
+}
 .city-list__option_active {
   background: #000000;
 }
