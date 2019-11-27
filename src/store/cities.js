@@ -111,6 +111,7 @@ export default {
                 if(!exist.length) {
                     /** Найдет ли сервис такой город? */
                     await dispatch("getWeather", {cityName: newCity});
+
                     if (getters.responseStatus === 200) {
                         validCity = true;
                     } else {

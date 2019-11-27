@@ -41,7 +41,7 @@
                 return this.$store.getters.cities;
             },
             weatherResponseStatus() {
-                return this.$store.getters.weatherResponseStatus;
+                return this.$store.getters.responseStatus;
             }
         },
         async mounted() {
@@ -71,6 +71,7 @@
                 await this.$store.dispatch("addCity", {cityName: this.newCity});
 
                 this.activeCityId = this.$store.getters.activeCity.id;
+
                 if(this.weatherResponseStatus === 200) {
                     this.showList = !this.showList;
                     this.newCity = "";
